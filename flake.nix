@@ -25,11 +25,17 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          name = "mpc";
+          name = "multi-party-ecdsa";
           nativeBuildInputs = [
             pkgs.gmp
+            # For tests
             pkgs.pkgconfig
             pkgs.openssl
+
+            # For multichain FFI
+            pkgs.go_1_20
+            pkgs.clang
+            pkgs.libclang.lib
             # Mold Linker for faster builds (only on Linux)
             (lib.optionals pkgs.stdenv.isLinux pkgs.mold)
           ];
@@ -39,7 +45,9 @@
           ];
           packages = [ ];					
           RUST_SRC_PATH = "${toolchain}/lib/rustlib/src/rust/library";
-          LD_LIBRARY_PATH = "${pkgs.gmp}/lib";
+          LD_LIBRARY_PATH = "${pkgs.gmp}/lib;${pkgs.go_1_20}/lib";
+          # For multichain FFI
+          LIBCLANG_PATH = "${pkgs.libclang.lib}/lib";
         };
       });
 }

@@ -18,8 +18,11 @@
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
 
+#[cfg(feature = "multichain-impl")]
+pub mod multichain;
 pub mod protocols;
 pub mod utilities;
+
 use std::fmt;
 
 pub use protocols::multi_party_ecdsa::gg_2020::state_machine::traits::MessageRoundID;
