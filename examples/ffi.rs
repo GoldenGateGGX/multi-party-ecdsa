@@ -1,17 +1,6 @@
-use multi_party_ecdsa::multichain::greet;
+use multi_party_ecdsa::multichain::create_node;
 
 fn main() {
-    let result = greet("Rust");
+    let result = create_node(1, 1, 1024, "EC256STARK");
     println!("{}", result);
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = greet("Rust");
-        assert_eq!(result, "Hello from Go, Rust!");
-    }
 }
